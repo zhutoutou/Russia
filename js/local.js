@@ -23,8 +23,12 @@ var Local =function(){
 	}
 	// 移动
 	var move =function(){
-		game.down();
+		if(!game.down()){
+			game.fixed();
+		}
 	}
+
+
 
 	// 开始
 	var start =function(){

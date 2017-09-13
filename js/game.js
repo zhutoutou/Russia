@@ -102,7 +102,20 @@ var Game = function(){
 		for (var i = 0; i < cur.data.length; i++) {
 			for (var j = 0; j < cur.data[0].length; j++) {
 				if(check(cur.origin,i,j)){
-					gameData[cur.origin.x+i][cur.origin.y+j] = cur.data[i][j]
+					gameData[cur.origin.x + i][cur.origin.y + j] = cur.data[i][j]
+				}
+			}
+		}
+	}
+
+	// 固定
+	var fixed =function(){
+		for (var i = 0; i < cur.data.length; i++) {
+			for (var j = 0; j < cur.data[0].length; j++) {
+				if(!check(cur.origin,i,j)){
+					if(cur.data[cur.origin.x + i][cur.origin.y + j] == 2){
+						cur.data[cur.origin.x + i][cur.origin.y + j] = 1;
+					}
 				}
 			}
 		}
@@ -174,4 +187,5 @@ var Game = function(){
 	this.right = right;
 	this.rotate =rotate;
 	this.fall = function(){while(down());}
+	this.fixed = fixed;
 }

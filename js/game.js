@@ -55,6 +55,7 @@ var Game = function(){
 		}
 	}
 
+
 	// 检测点是否合法
 	var check =function(pos,x,y){
 		if(pos.x +x<0){
@@ -114,6 +115,9 @@ var Game = function(){
 			cur.down();
 			setData();
 			refreshDiv(gameData,gameDivs);
+			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -124,7 +128,8 @@ var Game = function(){
 			cur.left();
 			setData();
 			refreshDiv(gameData,gameDivs);
-		}
+			return true;
+		} 
 	}
 
 
@@ -135,18 +140,27 @@ var Game = function(){
 			cur.right();
 			setData();
 			refreshDiv(gameData,gameDivs);
-		}
+			return true;
+		} 
 	}
 
+	// 旋转
+	var rotate = function(){
+		if(cur.canRotate(isValid)){
+			clearData();
+			cur.rotate();
+			setData();
+			refreshDiv(gameData,gameDivs);
+			return true;
+		} 
+	}
 
 	// 初始化
 	var init=function(doms){
 		gameDiv=doms.gameDiv;
 		nextDiv =doms.nextDiv;
-		cur =new Square();
-		next = new Square();
-		cur.origin.x=10;
-		cur.origin.y=5;
+		cur = SquareFactory.prototype.make(2,2);
+		next = SquareFactory.prototype.make(3,3);
 		setData();
 		initDiv(gameDiv,gameData,gameDivs);
 		initDiv(nextDiv,next.data,nextDivs);
@@ -158,4 +172,6 @@ var Game = function(){
 	this.down = down;
 	this.left = left;
 	this.right = right;
+	this.rotate =rotate;
+	this.fall = function(){while(down());}
 }

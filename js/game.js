@@ -112,13 +112,24 @@ var Game = function(){
 	var fixed =function(){
 		for (var i = 0; i < cur.data.length; i++) {
 			for (var j = 0; j < cur.data[0].length; j++) {
-				if(!check(cur.origin,i,j)){
-					if(cur.data[cur.origin.x + i][cur.origin.y + j] == 2){
-						cur.data[cur.origin.x + i][cur.origin.y + j] = 1;
+				if(check(cur.origin,i,j)){
+					if(gameData[cur.origin.x + i][cur.origin.y + j] == 2){
+						gameData[cur.origin.x + i][cur.origin.y + j] = 1;
 					}
 				}
 			}
 		}
+		refreshDiv(gameData,gameDivs);
+	}
+
+	// 展示下一个
+	
+	var performNext = function(type,dir){
+		cur = next;
+		setData();
+		next = SquareFactory.prototype.make(type,dir);
+		refreshDiv(gameData,gameDivs);
+		refreshDiv(next.data,nextDivs)
 	}
 
 	// 下移
@@ -188,4 +199,5 @@ var Game = function(){
 	this.rotate =rotate;
 	this.fall = function(){while(down());}
 	this.fixed = fixed;
+	this.performNext = performNext;
 }

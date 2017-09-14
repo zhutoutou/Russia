@@ -25,10 +25,19 @@ var Local =function(){
 	var move =function(){
 		if(!game.down()){
 			game.fixed();
+			game.performNext(generateType(),generateDir());
 		}
 	}
 
-
+	// 随机生成一个方块种类
+	var generateType = function(){
+		return Math.ceil(Math.random() * 7) - 1;
+	}
+	
+	// 随机生成一个方块旋转次数
+	var generateDir = function(){
+		return Math.ceil(Math.random() * 4) - 1;
+	}
 
 	// 开始
 	var start =function(){
